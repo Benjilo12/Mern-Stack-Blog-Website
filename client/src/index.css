@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+* {
+  font-family: "Outfit", sans-serif;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+@theme {
+  --color-primary: #5044e5;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-pulse {
+  animation-duration: 1.5s; /* Faster animation */
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animation-delay-3000 {
+  animation-delay: 3s;
+}
+
+.animation-delay-6000 {
+  animation-delay: 6s;
+}
+.rich-text {
+  font-size: 16px;
+  @apply dark:text-gray-50;
+}
+
+.rich-text p {
+  margin-bottom: 14px;
+  color: #292929;
+  @apply dark:text-gray-400;
+}
+
+.rich-text h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  margin: 24px 0;
+  margin-bottom: 30px;
+  @apply dark:text-gray-50;
+}
+
+.rich-text h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #252525;
+  margin: 24px 0;
+  @apply dark:text-gray-300;
+}
+
+.rich-text h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #252525;
+  margin: 20px 0;
+  @apply dark:text-gray-300;
+}
+
+.rich-text h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #252525;
+  margin: 16px 0;
+  @apply dark:text-gray-300;
+}
+
+.rich-text h5 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #252525;
+  margin: 12px 0;
+  @apply dark:text-gray-300;
+}
+
+.rich-text h6 {
+  font-size: 12px;
+  font-weight: 400;
+  color: #252525;
+  margin: 8px 0;
+  @apply dark:text-gray-300;
+}
+
+.rich-text stong {
+  font-weight: 700;
+  @apply dark:text-gray-50;
+}
+
+.rich-text ol {
+  margin-left: 30px;
+  list-style-type: decimal;
+}
+
+.rich-text ul {
+  margin-left: 30px;
+  list-style-type: disc;
+}
+
+.rich-text li {
+  margin-bottom: 8px;
+  @apply dark:text-gray-300;
+}
+
+.rich-text a {
+  color: #007aff;
+  text-decoration: underline;
+}
+
+/* ===== UPDATED QUILL DARK MODE STYLES ===== */
+.dark .ql-container.ql-snow {
+  border: 1px solid #2a3039 t;
+  background-color: #374151;
+  color: #ffffff;
+}
+
+.dark .ql-toolbar.ql-snow {
+  border: 1px solid #4f555d;
+  background-color: #1f2937;
+}
+
+/* White heading text in dark mode */
+.dark .ql-container .ql-editor h1,
+.dark .ql-container .ql-editor h2,
+.dark .ql-container .ql-editor h3,
+.dark .ql-container .ql-editor h4,
+.dark .ql-container .ql-editor h5,
+.dark .ql-container .ql-editor h6 {
+  color: #ffffff;
+}
+
+/* White toolbar icons */
+.dark .ql-toolbar .ql-stroke {
+  stroke: #fff !important;
+}
+
+.dark .ql-toolbar .ql-fill {
+  fill: #fff !important;
+}
+
+.dark .ql-toolbar button {
+  color: #fff !important;
+}

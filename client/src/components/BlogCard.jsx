@@ -1,0 +1,69 @@
+import { useNavigate } from "react-router-dom";
+import avatar from "./images/avatar.jpg";
+
+const calculateReadingTime = (text) => {
+  const wordsPerMinute = 150;
+  const textLength = text.split(/\s+/).length;
+  return Math.ceil(textLength / wordsPerMinute);
+};
+
+function BlogCard({ blog }) {
+  const { title, description, category, image, slug, author } = blog;
+  const navigate = useNavigate();
+
+  const readingTime = calculateReadingTime(description);
+
+  return (
+    <div
+      onClick={() => navigate(`/blog/${slug}`)}
+      className="w-full rounded-xl overflow-hidden shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer 
+      bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-primary/30
+      dark:hover:border-emerald-400/30 group"
+    >
+      <div className="relative overflow-hidden">
+        <img
+          src={image}
+          alt={title}
+          className="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <span
+          className="absolute top-3 left-3 px-3 py-1 font-bold bg-sky-500/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-full 
+        text-gray-50 text-xs dark:text-emerald-300 shadow-sm"
+        >
+          {category}
+        </span>
+      </div>
+
+      <div className="p-5 space-y-3">
+        <h5
+          className="text-[20px] font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-blue-500 
+        transition-colors duration-200 line-clamp-2 hover:underline underline-offset-4"
+        >
+          {title}
+        </h5>
+        <p
+          className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3"
+          dangerouslySetInnerHTML={{ __html: description?.slice(0, 120) || "" }}
+        ></p>
+
+        <div className="flex items-center gap-3 pt-3">
+          <img
+            src={avatar}
+            alt={author}
+            className="w-8 h-8 rounded-full object-cover border-2 border-white dark:border-gray-700 shadow-sm"
+          />
+          <div>
+            <p className="text-sm text-sky-500 font-medium mt-1 dark:text-teal-400">
+              {author}
+            </p>
+            <p className="text-xs  text-gray-500 dark:text-gray-400">
+              {readingTime}mins
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default BlogCard;
