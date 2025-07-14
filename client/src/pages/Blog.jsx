@@ -107,12 +107,9 @@ function Blog() {
         <p className="text-primary py-2 font-medium dark:text-emerald-400 inline-flex items-center justify-center gap-4 px-6 mb-8 border border-primary/40 bg-primary/10 backdrop-blur-sm rounded-full text-sm dark:bg-emerald-400/10 dark:border-emerald-400/30">
           Published on {Moment(data.createdAt).format("MMM Do YYYY")}
         </p>
-        <h1 className="text-2xl sm:text-5xl font-semibold max-w-1xl mx-auto dark:text-white text-gray-900">
+        <h1 className="text-2xl sm:text-5xl mb-5 font-semibold max-w-1xl mx-auto dark:text-white text-gray-900">
           {data.title}
         </h1>
-        <h2 className="my-3 max-w-lg mx-auto text-[18px] dark:text-gray-400">
-          {data.subTitle}
-        </h2>
 
         <div className="">
           {" "}
@@ -123,12 +120,15 @@ function Blog() {
         </div>
         <div className="inline-flex gap-1">
           <p className="inline-flex">
-            <Clock9 size={20} className="mr-1 dark:text-cyan-500" />
-            <span className="dark:dark:text-cyan-500 text-[15px]">
+            <Clock9
+              size={20}
+              className="mr-1 text-sky-500 dark:text-cyan-500"
+            />
+            <span className="dark:dark:text-cyan-500  text-sky-500 text-[15px]">
               Read time:
             </span>
           </p>
-          <p className="dark:text-gray-400">{readingTime}mins</p>
+          <p className="dark:text-gray-400  text-sky-600">{readingTime}mins</p>
         </div>
       </div>
 
@@ -140,7 +140,7 @@ function Blog() {
         />
 
         <div
-          className="rich-text max-w-4xl mx-auto text-gray-800 mt-15 dark:text-gray-300 prose dark:prose-invert"
+          className="rich-text max-w-5xl mx-auto text-gray-800 mt-15 dark:text-gray-300 prose dark:prose-invert"
           dangerouslySetInnerHTML={{ __html: data.description }}
         ></div>
 
@@ -176,7 +176,7 @@ function Blog() {
                       <p className="mt-1 text-[14px] text-gray-700 dark:text-gray-300">
                         {item.content}
                       </p>
-                      <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                      <div className="mt-2 text-xs text-teal-500 dark:text-gray-400">
                         {Moment(item.createdAt).fromNow()}
                       </div>
                     </div>

@@ -1,3 +1,4 @@
+/* QuillEditor.css */
 @import url("https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
 @import "tailwindcss";
 
@@ -142,7 +143,7 @@
 
 /* ===== UPDATED QUILL DARK MODE STYLES ===== */
 .dark .ql-container.ql-snow {
-  border: 1px solid #2a3039 t;
+  border: 1px solid #2a3039;
   background-color: #374151;
   color: #ffffff;
 }
@@ -173,4 +174,57 @@
 
 .dark .ql-toolbar button {
   color: #fff !important;
+}
+
+/* ===== YOUTUBE EMBED STYLES ===== */
+/* YouTube button styling */
+.ql-toolbar .ql-youtube::before {
+  content: "📺 YouTube";
+  font-size: 12px;
+}
+
+/* Dark mode styling for YouTube button */
+.dark .ql-toolbar .ql-youtube {
+  color: #f0f0f0;
+}
+
+/* YouTube embed container */
+.youtube-embed {
+  display: block;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.dark .youtube-embed {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+}
+
+/* YouTube embed container */
+.youtube-embed-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  width: 100%;
+}
+
+/* YouTube iframe */
+.youtube-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+/* Hover effect for YouTube embeds */
+.youtube-embed:hover {
+  box-shadow: 0 0 12px rgba(8, 2, 29, 0.741);
+  transform: translateY(-2px);
 }

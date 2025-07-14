@@ -1,17 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import avatar from "./images/avatar.jpg";
 
-const calculateReadingTime = (text) => {
-  const wordsPerMinute = 150;
-  const textLength = text.split(/\s+/).length;
-  return Math.ceil(textLength / wordsPerMinute);
-};
+// const calculateReadingTime = (text) => {
+//   const wordsPerMinute = 150;
+//   const textLength = text.split(/\s+/).length;
+//   return Math.ceil(textLength / wordsPerMinute);
+// };
 
 function BlogCard({ blog }) {
-  const { title, description, category, image, slug, author } = blog;
+  const { title, subTitle, category, image, slug, author } = blog;
   const navigate = useNavigate();
-
-  const readingTime = calculateReadingTime(description);
 
   return (
     <div
@@ -36,17 +34,17 @@ function BlogCard({ blog }) {
 
       <div className="p-5 space-y-3">
         <h5
-          className="text-[20px] font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-blue-500 
+          className="text-[18px] font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-blue-500 
         transition-colors duration-200 line-clamp-2 hover:underline underline-offset-4"
         >
           {title}
         </h5>
         <p
-          className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3"
-          dangerouslySetInnerHTML={{ __html: description?.slice(0, 120) || "" }}
+          className="text-gray-700 dark:text-gray-300 text-[15px] leading-relaxed line-clamp-3"
+          dangerouslySetInnerHTML={{ __html: subTitle?.slice(0, 130) || "" }}
         ></p>
 
-        <div className="flex items-center gap-3 pt-3">
+        <div className="flex items-center  pt-3">
           <img
             src={avatar}
             alt={author}
@@ -55,9 +53,6 @@ function BlogCard({ blog }) {
           <div>
             <p className="text-sm text-sky-500 font-medium mt-1 dark:text-teal-400">
               {author}
-            </p>
-            <p className="text-xs  text-gray-500 dark:text-gray-400">
-              {readingTime}mins
             </p>
           </div>
         </div>

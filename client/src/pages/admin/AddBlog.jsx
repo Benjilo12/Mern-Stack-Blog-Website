@@ -1,4 +1,3 @@
-import { ImageUp } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import upload from "../../components/images/upload.png";
 import Quill from "quill";
@@ -6,6 +5,48 @@ import { blogCategories } from "../../assets/assets";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
 import { parse } from "marked";
+import "quill/dist/quill.snow.css";
+
+// YouTube video embed module
+const YouTubeEmbed = Quill.import("blots/embed");
+
+class YouTubeVideo extends YouTubeEmbed {
+  static create(value) {
+    const node = super.create(value);
+
+    // Create container with proper classes
+    const container = document.createElement("div");
+    container.className = "youtube-embed-container";
+
+    // Create iframe with proper attributes
+    const iframe = document.createElement("iframe");
+    iframe.setAttribute("src", `https://www.youtube.com/embed/${value.id}`);
+    iframe.setAttribute("frameborder", "0");
+    iframe.setAttribute("allowfullscreen", "true");
+    iframe.setAttribute(
+      "allow",
+      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    );
+    iframe.className = "youtube-iframe";
+
+    container.appendChild(iframe);
+    node.appendChild(container);
+
+    return node;
+  }
+
+  static value(node) {
+    const iframe = node.querySelector("iframe");
+    const url = iframe ? iframe.getAttribute("src") : "";
+    const match = url.match(/youtube\.com\/embed\/([^?]+)/);
+    return match ? { id: match[1] } : null;
+  }
+}
+
+YouTubeVideo.blotName = "youtube";
+YouTubeVideo.className = "youtube-embed";
+YouTubeVideo.tagName = "div";
+Quill.register(YouTubeVideo);
 
 function AddBlog() {
   const { axios } = useAppContext();
@@ -97,21 +138,53 @@ function AddBlog() {
     }
   };
 
+  // Function to add YouTube video
+  const addYouTubeVideo = () => {
+    const url = prompt("Enter YouTube video URL:");
+    if (!url) return;
+
+    // Extract video ID from different YouTube URL formats
+    const match = url.match(
+      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+    );
+
+    if (match && match[1]) {
+      const videoId = match[1];
+      const range = quillRef.current.getSelection(true);
+      quillRef.current.insertEmbed(range.index, "youtube", { id: videoId });
+      quillRef.current.setSelection(range.index + 1);
+    } else {
+      toast.error("Invalid YouTube URL");
+    }
+  };
+
   useEffect(() => {
     if (!quillRef.current && editorRef.current) {
+      // Create custom YouTube button
+      const customToolbarOptions = [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ color: [] }, { background: [] }],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ indent: "-1" }, { indent: "+1" }],
+        [{ align: [] }],
+        ["link", "image", "video", "youtube"],
+        ["clean"],
+      ];
+
       quillRef.current = new Quill(editorRef.current, {
         theme: "snow",
         modules: {
-          toolbar: [
-            [{ header: [1, 2, 3, 4, 5, 6, false] }],
-            ["bold", "italic", "underline", "strike"],
-            [{ list: "ordered" }, { list: "bullet" }],
-            ["link", "image"],
-            ["clean"],
-          ],
+          toolbar: {
+            container: customToolbarOptions,
+            handlers: {
+              youtube: addYouTubeVideo,
+            },
+          },
         },
       });
 
+      // Apply dark mode styles
       const container = editorRef.current.querySelector(".ql-container");
       const toolbar = editorRef.current.querySelector(".ql-toolbar");
 
@@ -122,7 +195,7 @@ function AddBlog() {
 
   return (
     <form
-      onSubmit={handleSubmit} // Fixed to use handleSubmit
+      onSubmit={handleSubmit}
       className="flex-1 text-gray-800 h-full overflow-scroll"
     >
       <div className="w-full max-w-3xl p-4 md:p-10 sm:m-10 shadow-lg rounded dark:bg-gray-700">
@@ -163,7 +236,7 @@ function AddBlog() {
         />
 
         <p className="dark:text-gray-50 mt-7">Blog Description</p>
-        <div className="max-w-lg h-74 pb-16 sm:pb-10 pt-2 relative">
+        <div className="max-w-lg h-74 pb-16 sm:pb-10 pt-2 relative mb-20">
           <div ref={editorRef}></div>
           <button
             disabled={loading}
