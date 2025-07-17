@@ -5,9 +5,10 @@ import blog3 from "../components/images/blog3.jpg";
 export const blogCategories = [
   "All",
   "Technology",
-  "startup",
-  "LifeStyle",
+  "Startup",
+  "Vacancy",
   "Finance",
+  "News",
 ];
 
 export const blog_data = [
@@ -119,27 +120,6 @@ export const blog_data = [
     __v: 0,
     isPublished: true,
     subTitle: "AI in Daily Life",
-  },
-];
-
-export const footer_data = [
-  {
-    title: "Quick Links",
-    links: ["Home", "Blogs", "Contact Us", "FAQ"],
-  },
-  {
-    title: "Need Help",
-    links: [
-      "Contact Us",
-      "FAQ",
-      "Support",
-      "Privacy Policy",
-      "Advertise with Us",
-    ],
-  },
-  {
-    title: "Follow Us",
-    links: ["Instagram", "X.com", "Facebook", "Youtube"],
   },
 ];
 

@@ -57,17 +57,18 @@ export const AppProvider = ({ children }) => {
       setLoadingLatestBlogs(false);
     }
   };
+
   const fetchRecentBlogs = async () => {
     try {
-      setRecentBlogs(true);
+      setLoadingRecentBlogs(true); // Fixed: using setLoadingRecentBlogs
       const { data } = await axios.get("/api/blog/recent");
       if (data.success) {
         setRecentBlogs(data.blogs);
       }
     } catch (error) {
-      toast.error("Latest blogs fetch error:", error);
+      toast.error("Recent blogs fetch error:", error);
     } finally {
-      setRecentBlogs(false);
+      setLoadingRecentBlogs(false); // Fixed: using setLoadingRecentBlogs
     }
   };
 
@@ -97,6 +98,7 @@ export const AppProvider = ({ children }) => {
     loadingRecentBlogs,
     setLoadingRecentBlogs,
   };
+
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 

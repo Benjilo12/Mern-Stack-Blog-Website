@@ -12,6 +12,10 @@ import Login from "./components/admin/Login";
 import "quill/dist/quill.snow.css";
 import { Toaster } from "react-hot-toast";
 import BlogPage from "./pages/BlogPage";
+import PrivacyPage from "./pages/helppages/PrivacyPage";
+import FaqPage from "./pages/helppages/FaqPage";
+import ContactPage from "./pages/helppages/ContactPage";
+import NotFound from "./pages/NotFound";
 
 // Create a separate component for routes that uses context
 function AppRoutes() {
@@ -23,6 +27,9 @@ function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/blog/:slug" element={<Blog />} />
       <Route path="/blogpage" element={<BlogPage />} />
+      <Route path="/privacy" element={<PrivacyPage />} />
+      <Route path="/faq" element={<FaqPage />} />
+      <Route path="/contact" element={<ContactPage />} />
 
       {/* Protected admin routes */}
       <Route path="/admin" element={token ? <Layout /> : <Login />}>
@@ -31,6 +38,7 @@ function AppRoutes() {
         <Route path="ListBlog" element={<ListBlog />} />
         <Route path="comments" element={<Comment />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

@@ -16,7 +16,7 @@ function Newsletter() {
         />
         <button
           type="submit"
-          className="md:px-12 px-8 h-full text-white bg-primary/80 hover:bg-primary-600 transition-all rounded-md py-2.5 cursor-pointer rounded-l-none dark:bg-emerald-500"
+          className="md:px-12 px-8 h-full text-white bg-blue-500 hover:bg-primary-600 transition-all rounded-md py-2.5 cursor-pointer rounded-l-none dark:bg-emerald-500"
         >
           Subscribe
         </button>

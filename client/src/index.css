@@ -64,7 +64,7 @@
 .rich-text p {
   margin-bottom: 14px;
   color: #292929;
-  @apply dark:text-gray-400;
+  @apply dark:text-gray-300;
 }
 
 .rich-text h1 {

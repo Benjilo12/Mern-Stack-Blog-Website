@@ -14,7 +14,7 @@ function BlogCard({ blog }) {
   return (
     <div
       onClick={() => navigate(`/blog/${slug}`)}
-      className="w-full rounded-xl overflow-hidden shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer 
+      className="w-full rounded-xl overflow-hidden shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer 
       bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-primary/30
       dark:hover:border-emerald-400/30 group"
     >
@@ -48,10 +48,10 @@ function BlogCard({ blog }) {
           <img
             src={avatar}
             alt={author}
-            className="w-8 h-8 rounded-full object-cover border-2 border-white dark:border-gray-700 shadow-sm"
+            className="w-8 h-8 rounded-full  object-cover border-2 border-white dark:border-gray-700 shadow-sm"
           />
           <div>
-            <p className="text-sm text-sky-500 font-medium mt-1 dark:text-teal-400">
+            <p className="text-sm text-sky-500 ml-1 font-medium mt-1 dark:text-teal-400">
               {author}
             </p>
           </div>

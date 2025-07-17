@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-
+import { useSearchParams, Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import { blogCategories } from "../assets/assets";
 import BlogCardSkeleton from "./BlogCardSkeleton";
 import BlogCard from "./BlogCard";
-import { Link } from "react-router-dom";
 
 function BlogList() {
-  const [menu, setMenu] = useState("All");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialCategory = searchParams.get("category") || "All";
+  const [menu, setMenu] = useState(initialCategory);
   const { latestblogs, input, loadingLatestBlogs } = useAppContext();
 
   const filteredBlogs = latestblogs.filter((blog) => {
@@ -18,6 +19,12 @@ function BlogList() {
       blog.category.toLowerCase().includes(searchTerm)
     );
   });
+
+  const handleCategoryChange = (category) => {
+    setMenu(category);
+    // Update URL params without page reload
+    setSearchParams({ category });
+  };
 
   return (
     <div>
@@ -29,14 +36,14 @@ function BlogList() {
                 menu === item &&
                 "text-white px-4 pt-0.5 dark:text-white dark:bg-emerald-400 dark:px-4 dark:pt-0.5 dark:rounded-full"
               }`}
-              onClick={() => setMenu(item)}
+              onClick={() => handleCategoryChange(item)}
             >
               {item}
               {menu === item && (
                 <motion.div
                   layoutId="underline"
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  className="absolute left-0 right-0 top-0 h-7 -z-1 bg-primary rounded-full dark:bg-emerald-300"
+                  className="absolute left-0 right-0 top-0 h-7 -z-1 bg-blue-500 rounded-full dark:bg-emerald-300"
                 ></motion.div>
               )}
             </button>
@@ -46,36 +53,18 @@ function BlogList() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 mx-8 sm:mx-16 xl:grid-cols-4 mb-24 xl:mx-40">
         {loadingLatestBlogs
-          ? // Show skeleton loaders while loading
-            Array.from({ length: 8 }).map((_, index) => (
+          ? Array.from({ length: 8 }).map((_, index) => (
               <BlogCardSkeleton key={index} />
             ))
-          : // Show actual blog cards when data is ready
-            filteredBlogs
+          : filteredBlogs
               .filter((blog) => menu === "All" || blog.category === menu)
               .map((blog) => <BlogCard key={blog._id} blog={blog} />)}
       </div>
+
       <div className="flex justify-center">
         <Link
-          to={"/blogpage"}
-          className="
-          inline-block
-          px-4
-          py-2
-          rounded-full
-          bg-blue-600
-          text-white
-          font-semibold
-          text-sm
-          md:text-base
-          shadow
-          hover:bg-blue-700
-          hover:scale-105
-          active:scale-95
-          transition
-          dark:bg-emerald-500
-          dark:hover:bg-emerald-600
-        "
+          to={`/blogpage${menu !== "All" ? `?category=${menu}` : ""}`}
+          className="inline-block px-4 py-2 rounded-full bg-blue-500 text-white font-semibold text-sm md:text-base shadow hover:bg-blue-700 hover:scale-105 active:scale-95 transition dark:bg-emerald-500 dark:hover:bg-emerald-600"
         >
           Read More
         </Link>
