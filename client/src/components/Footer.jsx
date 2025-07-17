@@ -17,7 +17,7 @@ const footer_data = [
       { name: "Contact Us", path: "/contact" },
       { name: "FAQ", path: "/faq" },
       { name: "Privacy", path: "/privacy" },
-      { name: "Advertise with Us", path: "/advertise" },
+      { name: "Advertise with Us", path: "/" },
     ],
   },
   {
