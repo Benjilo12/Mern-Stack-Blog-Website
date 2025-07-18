@@ -8,12 +8,6 @@ import Hements from "../../components/Hements";
 import toast from "react-hot-toast";
 
 function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
   const onSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -33,7 +27,8 @@ function ContactPage() {
     }).then((res) => res.json());
 
     if (res.success) {
-      console.log("Success", res);
+      toast.success("Success", res);
+      event.target.reset();
     }
   };
 

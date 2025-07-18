@@ -48,7 +48,7 @@ function Header() {
           {/* Email badge */}
           <div className="inline-flex items-center justify-center gap-4 px-6 py-1.5 mb-4 border border-blue-400/70 bg-white/20 backdrop-blur-sm rounded-full text-sm text-white shadow-sm dark:bg-emerald-400/10 dark:border-emerald-400/30">
             <p className="font-bold text-white dark:text-gray-100">
-              Email: benjamindarteyy@gmail.com
+              Email: topblog.com
             </p>
             <Sparkle className="text-yellow-300 dark:text-yellow-300" />
           </div>
