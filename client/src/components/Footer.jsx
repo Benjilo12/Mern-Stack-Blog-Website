@@ -46,7 +46,7 @@ function Footer() {
               <span className="text-cyan-600">Top</span>Blog
             </span>
           </Link>
-          <p className=" text-gray-600 text-[14px] md:text-[24px] max-w-[410px] mt-3 dark:text-gray-400">
+          <p className=" text-gray-600 text-[14px] md:text-[15px] max-w-[410px] mt-3 dark:text-gray-400">
             This is my space to think out loud, share what matters to me, and
             write straight from the heart. Whether it's a fleeting thought or a
             deeper dive, my story unfolds right here. I'm glad you're along for
