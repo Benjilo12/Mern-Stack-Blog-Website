@@ -228,3 +228,55 @@
   box-shadow: 0 0 12px rgba(8, 2, 29, 0.741);
   transform: translateY(-2px);
 }
+
+/* Gradient animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Light mode twinkling */
+@keyframes twinkle {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+/* Dark mode twinkling (slower and more subtle) */
+@keyframes twinkle-slow {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.animate-twinkle-slow {
+  animation: twinkle-slow 6s ease-in-out infinite;
+}

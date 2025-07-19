@@ -33,8 +33,9 @@ function BlogPage() {
           <h1 className="text-3xl font-extrabold text-blue-600 dark:text-emerald-400 mb-2">
             Latest Stories
           </h1>
-          <p className="text-gray-600 dark:text-gray-300 mb-8">
-            Latest news about markets and price movements.
+          <p className="text-gray-600 text-[12px] md:text-[17px] flex flex-wrap dark:text-gray-300 mb-8">
+            Latest news about Job vacancies, Technology, markets and price
+            movements.
           </p>
 
           {/* Categories */}

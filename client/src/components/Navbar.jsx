@@ -23,16 +23,16 @@ function Navbar() {
       <div className="flex gap-7 font-bold">
         <button
           onClick={() => setDarkMode((prev) => !prev)}
-          className="md:px-3 md:py-2 text-[14px] py-1 px-1 bg-gray-200 rounded-md transition-all dark:text-gray-100  dark:bg-gray-600 d cursor-pointer"
+          className="md:px-3 md:py-2 text-[14px] py-1 px-2 bg-gray-200 rounded-md transition-all dark:text-gray-100  dark:bg-gray-600 d cursor-pointer"
         >
-          {darkMode ? "🌙 Dark mode" : "☀️ Light mode"}
+          {darkMode ? "🌙 " : "☀️ "}
         </button>
         <button
           className="flex items-center gap-2 rounded-full text-sm cursor-pointer bg-primary text-white px-5 py-2 md:px-10 md:py-2.5"
           onClick={() => navigate("/admin")}
         >
           {token ? "Dashboard" : "Login"}
-          <LogIn />
+          <LogIn className="hidden md:block" />
         </button>
       </div>
     </div>

@@ -196,7 +196,7 @@ function ContactPage() {
                       Phone
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400">
-                      +1 (555) 123-4567
+                      +233506472535
                     </p>
                     <p className="text-gray-600 dark:text-gray-400">
                       Mon-Fri, 9am-5pm EST

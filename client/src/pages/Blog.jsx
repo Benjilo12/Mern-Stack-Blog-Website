@@ -118,7 +118,7 @@ function Blog() {
           <p className="text-primary py-2 font-medium dark:text-emerald-400 inline-flex items-center justify-center gap-4 px-6 mb-8 border border-primary/40 bg-primary/10 backdrop-blur-sm rounded-full text-sm dark:bg-emerald-400/10 dark:border-emerald-400/30">
             Published on {Moment(data.createdAt).format("MMM Do YYYY")}
           </p>
-          <h1 className="text-2xl sm:text-5xl mb-5 font-semibold max-w-6xl mx-auto dark:text-white text-gray-900">
+          <h1 className="text-[20px] sm:text-5xl mb-5 font-semibold max-w-6xl mx-auto dark:text-white text-gray-900">
             {data.title}
           </h1>
 
