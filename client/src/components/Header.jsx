@@ -19,7 +19,7 @@ function Header() {
   };
 
   return (
-    <div className="relative overflow-hidden h-[75vh]">
+    <div className="relative overflow-hidden h-[75vh] md:h-[70vh] lg:h-[65vh]">
       {/* Light/Dark mode aware animated background */}
       <div
         className="absolute inset-0 
@@ -48,27 +48,27 @@ function Header() {
       </div>
 
       {/* Content */}
-      <div className="mx-8 sm:mx-16 xl:mx-24 relative h-full flex flex-col justify-center">
+      <div className="mx-6 sm:mx-10 md:mx-16 lg:mx-24 xl:mx-32 lg:mt-7 relative h-full flex flex-col justify-center">
         <MarqBlog />
-        <div className="text-center py-12">
+        <div className="text-center py-8 md:py-10 lg:py-12">
           {/* Email badge */}
-          <div className="inline-flex items-center justify-center gap-4 px-6 py-1.5 mb-4 border border-blue-400/70 bg-white/20 backdrop-blur-sm rounded-full text-sm text-white shadow-sm dark:bg-emerald-400/10 dark:border-emerald-400/30">
+          <div className="inline-flex items-center justify-center gap-2 px-4 py-1 md:gap-3 md:px-5 md:py-1.5 mb-3 md:mb-4 border border-blue-400/70 bg-white/20 backdrop-blur-sm rounded-full text-xs md:text-sm text-white shadow-sm dark:bg-emerald-400/10 dark:border-emerald-400/30">
             <p className="font-bold text-white dark:text-gray-100">
               Email: topblog.com
             </p>
-            <Sparkle className="text-yellow-300 dark:text-yellow-300" />
+            <Sparkle className="size-4 md:size-5 text-yellow-300 dark:text-yellow-300" />
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-6xl font-semibold sm:leading-16 text-blue-400 dark:text-emerald-300">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight md:leading-snug lg:leading-normal text-blue-400 dark:text-emerald-300">
             Blogging{" "}
             <span className="text-white dark:text-gray-100">Without</span>{" "}
-            <br className="hidden sm:block" />
+            <br className="hidden lg:block" />
             <span className="text-white">Boundaries</span>
           </h1>
 
           {/* Description */}
-          <p className="my-6 sm:my-8 max-w-2xl mx-auto max-sm:text-xs text-white/90 dark:text-gray-300 backdrop-blur-sm py-3 px-4 rounded-lg bg-white/10 dark:bg-gray-800/50">
+          <p className="my-5 md:my-6 lg:my-5 max-w-md md:max-w-lg lg:max-w-2xl mx-auto text-sm md:text-base text-white/90 dark:text-gray-300 backdrop-blur-sm py-2 px-3 md:py-3 md:px-4 rounded-lg bg-white/10 dark:bg-gray-800/50">
             This is my space to think out loud, share what matters to me, and
             write straight from the heart. Whether it's a fleeting thought or a
             deeper dive, my story unfolds right here. I'm glad you're along for
@@ -78,7 +78,7 @@ function Header() {
           {/* Search form */}
           <form
             onSubmit={onSubmitHandler}
-            className="flex justify-between max-w-lg max-sm:scale-90 mx-auto border border-white/20 bg-white/20 backdrop-blur-sm rounded-xl overflow-hidden shadow-md dark:bg-gray-800/50"
+            className="flex justify-between max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto border border-white/20 bg-white/20 backdrop-blur-sm rounded-xl overflow-hidden shadow-md dark:bg-gray-800/50"
           >
             <div className="relative flex-1">
               <input
@@ -86,22 +86,22 @@ function Header() {
                 type="text"
                 placeholder="Search for blogs"
                 required
-                className="w-full pl-4 py-3 pr-10 outline-none bg-transparent text-white placeholder:text-white/70 dark:placeholder:text-gray-400"
+                className="w-full pl-3 py-2 pr-8 md:pl-4 md:py-3 md:pr-10 text-sm md:text-base outline-none bg-transparent text-white placeholder:text-white/70 dark:placeholder:text-gray-400"
               />
               {input && (
                 <button
                   type="button"
                   onClick={onClear}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white transition-colors cursor-pointer"
+                  className="absolute right-2 md:right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white transition-colors cursor-pointer"
                   aria-label="Clear search"
                 >
-                  <X size={18} />
+                  <X size={16} className="md:size-[18px]" />
                 </button>
               )}
             </div>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-6 py-3 m-1 rounded-lg hover:bg-blue-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 transition-colors cursor-pointer shadow-sm"
+              className="bg-blue-500 text-white px-4 py-2 m-1 text-sm md:text-base md:px-5 md:py-3 rounded-lg lg:mb-2 hover:bg-blue-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 transition-colors cursor-pointer shadow-sm"
             >
               Search
             </button>

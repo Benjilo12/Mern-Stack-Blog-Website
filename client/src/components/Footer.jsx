@@ -40,7 +40,7 @@ function Footer() {
             <img
               src={Topz}
               alt="logo"
-              className="md:w-10 md:h-10 md:mt-3 dark:bg-gray-900 w-9 h-9"
+              className="md:w-10 mr-1.5 md:h-10 md:mt-3 dark:bg-gray-900 w-9 h-9"
             />
             <span className="text-emerald-600 text-[19px] mt-3 md:text-[27px] font-bold">
               <span className="text-cyan-600">Top</span>Blog
