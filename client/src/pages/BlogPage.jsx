@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
 import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
@@ -7,6 +7,11 @@ import { blogCategories } from "../assets/assets";
 import Footer from "../components/Footer";
 import Newsletter from "../components/Newsletter";
 import Hements from "../components/Hements";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 function BlogPage() {
   const { blogs, loadingBlogs } = useAppContext();
@@ -14,6 +19,8 @@ function BlogPage() {
   const initialCategory = searchParams.get("category") || "All";
   const [menu, setMenu] = useState(initialCategory);
   const navigate = useNavigate();
+  const blogCardsRef = useRef([]);
+  const hasAnimated = useRef(false);
 
   const filteredBlogs = blogs.filter(
     (blog) => menu === "All" || blog.category === menu
@@ -24,22 +31,154 @@ function BlogPage() {
     setSearchParams({ category });
   };
 
+  // GSAP animations for blog cards
+  useEffect(() => {
+    if (
+      !loadingBlogs &&
+      blogCardsRef.current.length > 0 &&
+      !hasAnimated.current
+    ) {
+      hasAnimated.current = true;
+
+      // Animate blog cards with staggered animation
+      gsap.fromTo(
+        blogCardsRef.current,
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.95,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.7,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: blogCardsRef.current[0]?.parentElement,
+            start: "top 80%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        }
+      );
+
+      // Hover animations for blog cards
+      blogCardsRef.current.forEach((card) => {
+        if (!card) return;
+
+        // Scale up and elevate on hover
+        card.addEventListener("mouseenter", () => {
+          gsap.to(card, {
+            scale: 1.02,
+            duration: 0.3,
+            ease: "power2.out",
+            y: -8,
+            boxShadow: "0 15px 30px rgba(0, 0, 0, 0.12)",
+            backgroundColor: "rgba(59, 130, 246, 0.03)",
+          });
+
+          // Animate the image on hover
+          const img = card.querySelector("img");
+          if (img) {
+            gsap.to(img, {
+              scale: 1.05,
+              duration: 0.4,
+              ease: "power2.out",
+            });
+          }
+
+          // Animate the category tag
+          const categoryTag = card.querySelector("span:first-child");
+          if (categoryTag) {
+            gsap.to(categoryTag, {
+              y: -2,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          }
+        });
+
+        // Scale back to normal on mouse leave
+        card.addEventListener("mouseleave", () => {
+          gsap.to(card, {
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out",
+            y: 0,
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.05)",
+            backgroundColor: "transparent",
+          });
+
+          // Reset image animation
+          const img = card.querySelector("img");
+          if (img) {
+            gsap.to(img, {
+              scale: 1,
+              duration: 0.4,
+              ease: "power2.out",
+            });
+          }
+
+          // Reset category tag animation
+          const categoryTag = card.querySelector("span:first-child");
+          if (categoryTag) {
+            gsap.to(categoryTag, {
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          }
+        });
+      });
+    }
+
+    return () => {
+      // Clean up event listeners
+      blogCardsRef.current.forEach((card) => {
+        if (card) {
+          card.removeEventListener("mouseenter", () => {});
+          card.removeEventListener("mouseleave", () => {});
+        }
+      });
+    };
+  }, [loadingBlogs, filteredBlogs, menu]);
+
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
       <Hements title="Blog-page">
         <Navbar />
 
         <main className="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
-          <h1 className="text-3xl font-extrabold text-blue-600 dark:text-emerald-400 mb-2">
+          <h1
+            data-aos="fade-up"
+            data-aos-offset="200"
+            data-aos-delay="50"
+            data-aos-duration="1000"
+            className="text-3xl font-extrabold text-blue-600 dark:text-emerald-400 mb-2"
+          >
             Latest Stories
           </h1>
-          <p className="text-gray-600 text-[12px] md:text-[17px] flex flex-wrap dark:text-gray-300 mb-8">
+          <p
+            data-aos="fade-up"
+            data-aos-offset="200"
+            data-aos-delay="50"
+            data-aos-duration="2000"
+            className="text-gray-600 text-[12px] md:text-[17px] flex flex-wrap dark:text-gray-300 mb-8"
+          >
             Latest news about Job vacancies, Technology, markets and price
             movements.
           </p>
 
           {/* Categories */}
-          <div className="flex justify-center flex-wrap gap-4 sm:gap-8 my-10 relative">
+          <div
+            data-aos="fade-up"
+            data-aos-offset="200"
+            data-aos-delay="50"
+            data-aos-duration="3000"
+            className="flex justify-center flex-wrap gap-4 sm:gap-8 my-10 relative"
+          >
             {blogCategories.map((item) => (
               <div key={item} className="relative">
                 <button
@@ -70,21 +209,22 @@ function BlogPage() {
             <SkeletonList />
           ) : (
             <div className="space-y-8">
-              {filteredBlogs.map((blog) => {
+              {filteredBlogs.map((blog, index) => {
                 const readingTime = calculateReadingTime(
                   blog.description || ""
                 );
                 return (
                   <article
                     key={blog._id}
+                    ref={(el) => (blogCardsRef.current[index] = el)}
                     onClick={() => navigate(`/blog/${blog.slug}`)}
-                    className="cursor-pointer flex flex-col md:flex-row gap-4 border-b border-gray-700 dark:border-gray-700 pb-6 hover:bg-blue-100 dark:hover:bg-gray-800 transition rounded"
+                    className="blog-card cursor-pointer flex flex-col md:flex-row gap-4 border-b border-gray-700 dark:border-gray-700 pb-6 hover:bg-blue-100 dark:hover:bg-gray-800 transition rounded-lg p-4"
                   >
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 overflow-hidden rounded">
                       <img
                         src={blog.image}
                         alt={blog.title}
-                        className="w-full md:w-64 h-40 md:h-40 object-cover rounded"
+                        className="w-full md:w-64 h-40 md:h-40 object-cover rounded transition-transform duration-400"
                       />
                     </div>
 
@@ -92,7 +232,7 @@ function BlogPage() {
                       <div>
                         {/* Category tag added here */}
                         <div className="mb-2">
-                          <span className="inline-block px-3 mt-1 py-1 text-xs font-semibold rounded-full bg-blue-700 text-gray-50 dark:bg-blue-900/50 dark:text-emerald-300">
+                          <span className="inline-block px-3 mt-1 py-1 text-xs font-semibold rounded-full bg-blue-700 text-gray-50 dark:bg-blue-900/50 dark:text-emerald-300 transition-transform duration-300">
                             {blog.category}
                           </span>
                         </div>

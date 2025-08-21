@@ -1,11 +1,13 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
 import MarqBlog from "./MarqBlog";
 import { Sparkle, X } from "lucide-react";
+import gsap from "gsap";
 
 function Header() {
   const { setInput, input } = useAppContext();
   const inputRef = useRef();
+  const bloggingRef = useRef(null);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -17,6 +19,64 @@ function Header() {
     inputRef.current.value = "";
     inputRef.current.focus();
   };
+
+  useEffect(() => {
+    if (bloggingRef.current) {
+      // Split the text into individual letters for animation
+      const text = bloggingRef.current;
+      const letters = text.textContent.split("");
+      text.textContent = "";
+
+      letters.forEach((letter, i) => {
+        const span = document.createElement("span");
+        span.textContent = letter;
+        span.style.display = "inline-block";
+        span.style.opacity = "0";
+        span.style.transform = "rotateX(90deg)";
+        text.appendChild(span);
+
+        // Create the rolling animation
+        gsap.to(span, {
+          opacity: 1,
+          rotationX: 0,
+          duration: 0.5,
+          delay: i * 0.05,
+          ease: "back.out(1.7)",
+        });
+      });
+
+      // Create continuous rolling animation
+      const spans = text.querySelectorAll("span");
+
+      const rollAnimation = () => {
+        gsap.to(spans, {
+          rotationX: 90,
+          opacity: 0,
+          duration: 0.4,
+          stagger: 0.03,
+          ease: "back.in(1.7)",
+          onComplete: () => {
+            // Reset and restart
+            gsap.set(spans, { rotationX: -90, opacity: 0 });
+            gsap.to(spans, {
+              rotationX: 0,
+              opacity: 1,
+              duration: 0.5,
+              stagger: 0.03,
+              ease: "back.out(1.7)",
+              onComplete: () => {
+                // Wait a bit before restarting
+                setTimeout(rollAnimation, 3000);
+              },
+            });
+          },
+        });
+      };
+
+      // Start the continuous animation after initial load
+      setTimeout(rollAnimation, 4000);
+    }
+  }, []);
 
   return (
     <div className="relative overflow-hidden h-[75vh]">
@@ -60,15 +120,24 @@ function Header() {
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-6xl font-semibold sm:leading-16 text-blue-400 dark:text-emerald-300">
-            Blogging{" "}
+          <h1
+            data-aos="fade-up"
+            data-aos-duration="5000"
+            data-aos-delay="50"
+            className="text-3xl sm:text-6xl font-semibold sm:leading-16 text-blue-400 dark:text-emerald-300"
+          >
+            <span ref={bloggingRef}>Blogging</span>{" "}
             <span className="text-white dark:text-gray-100">Without</span>{" "}
             <br className="hidden sm:block" />
             <span className="text-white">Boundaries</span>
           </h1>
 
           {/* Description */}
-          <p className="my-6 sm:my-8 max-w-2xl mx-auto max-sm:text-xs text-white/90 dark:text-gray-300 backdrop-blur-sm py-3 px-4 rounded-lg bg-white/10 dark:bg-gray-800/50">
+          <p
+            data-aos="fade-up"
+            data-aos-duration="4000"
+            className="my-6 sm:my-8 max-w-2xl mx-auto max-sm:text-xs text-white/90 dark:text-gray-300 backdrop-blur-sm py-3 px-4 rounded-lg bg-white/10 dark:bg-gray-800/50"
+          >
             This is my space to think out loud, share what matters to me, and
             write straight from the heart. Whether it's a fleeting thought or a
             deeper dive, my story unfolds right here. I'm glad you're along for
@@ -79,8 +148,13 @@ function Header() {
           <form
             onSubmit={onSubmitHandler}
             className="flex justify-between max-w-lg max-sm:scale-90 mx-auto border border-white/20 bg-white/20 backdrop-blur-sm rounded-xl overflow-hidden shadow-md dark:bg-gray-800/50"
+            data-aos="fade-up"
           >
-            <div className="relative flex-1">
+            <div
+              data-aos="fade-up"
+              data-aos-duration="3000"
+              className="relative flex-1"
+            >
               <input
                 ref={inputRef}
                 type="text"

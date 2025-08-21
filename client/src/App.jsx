@@ -16,10 +16,25 @@ import PrivacyPage from "./pages/helppages/PrivacyPage";
 import FaqPage from "./pages/helppages/FaqPage";
 import ContactPage from "./pages/helppages/ContactPage";
 import NotFound from "./pages/NotFound";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 // Create a separate component for routes that uses context
 function AppRoutes() {
   const { token } = useAppContext();
+  useEffect(() => {
+    const initAOS = async () => {
+      await import("aos");
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        anchorPlacement: "top-bottom",
+      });
+    };
+    initAOS();
+  }, []);
 
   return (
     <Routes>
