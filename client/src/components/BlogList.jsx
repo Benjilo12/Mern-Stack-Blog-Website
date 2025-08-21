@@ -138,7 +138,7 @@ function BlogList() {
             <button
               className={`dark:text-gray-300 flex flex-wrap text-xs md:text-[15px] font-bold cursor-pointer text-gray-800 ${
                 menu === item &&
-                "text-white px-4 pt-0.5 dark:text-white dark:bg-emerald-400 dark:px-4 dark:pt-0.5 dark:rounded-full"
+                "text-white px-4  pt-1 dark:text-white dark:bg-emerald-400 dark:px-4 dark:pt-0.5 dark:rounded-full"
               }`}
               onClick={() => handleCategoryChange(item)}
             >
