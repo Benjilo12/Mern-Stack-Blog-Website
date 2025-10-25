@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  # 🟢 MongoDB
+  mongo:
+    image: mongo:latest
+    container_name: mongo-db
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mern_db:/data/db
+
+  # 🟠 Backend / Server
+  server:
+    build:
+      context: ./server
+    container_name: mern-server
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/mern_db
+      - NODE_ENV=production
+    depends_on:
+      - mongo
+
+  # 🔵 Frontend / Client
+  client:
+    build:
+      context: ./client
+    container_name: mern-client
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+
+volumes:
+  mern_db:

@@ -1,49 +1,28 @@
-import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 
 function Hements({ title, imageUrl, url, children }) {
-  useEffect(() => {
-    // Update the document title
-    document.title = `TopBlog - | ${title}`;
+  return (
+    <>
+      <Helmet>
+        {/* Page Title */}
+        <title>TopBlog - | {title}</title>
 
-    // Set or update meta tags for social sharing
-    const setMetaTag = (name, content) => {
-      let tag =
-        document.querySelector(`meta[name="${name}"]`) ||
-        document.querySelector(`meta[property="${name}"]`);
+        {/* Open Graph Meta */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        {url && <meta property="og:url" content={url} />}
+        {imageUrl && <meta property="og:image" content={imageUrl} />}
 
-      if (!tag) {
-        tag = document.createElement("meta");
-        if (name.startsWith("og:")) {
-          tag.setAttribute("property", name);
-        } else {
-          tag.setAttribute("name", name);
-        }
-        document.head.appendChild(tag);
-      }
-      tag.setAttribute("content", content);
-    };
+        {/* Twitter Meta */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        {url && <meta name="twitter:url" content={url} />}
+        {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+      </Helmet>
 
-    // Basic meta tags
-    setMetaTag("og:type", "website");
-    setMetaTag("og:title", title);
-    setMetaTag("og:url", url);
-
-    setMetaTag("twitter:card", "summary_large_image");
-    setMetaTag("twitter:title", title);
-    setMetaTag("twitter:url", url);
-
-    // Image meta tags if provided
-    if (imageUrl) {
-      setMetaTag("og:image", imageUrl);
-      setMetaTag("twitter:image", imageUrl);
-    }
-
-    return () => {
-      // Cleanup if needed
-    };
-  }, [title, imageUrl, url]);
-
-  return <div>{children}</div>;
+      {children}
+    </>
+  );
 }
 
 export default Hements;
